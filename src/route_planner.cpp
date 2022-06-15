@@ -80,7 +80,7 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
 
     // TODO: Implement your solution here.
     RouteModel::Node* node = current_node;
-    constexpr float threshold = 1.0E-5;
+    constexpr float threshold = 1.0E-8;
     path_found.push_back(*node);
     while (node->distance(*start_node) > threshold) {
         if (node->parent == nullptr) break;
@@ -110,25 +110,24 @@ void RoutePlanner::AStarSearch() {
     RouteModel::Node *current_node = nullptr;
 
     // TODO: Implement your solution here.
-    constexpr float threshold = 1.0E-5;
-    // If the start_node is the end_node
-    // Just return one node
-    if (start_node->distance(*end_node) < threshold) {
-        m_Model.path.push_back(*start_node);
-        return;
-    }
+    constexpr float threshold = 1.0E-8;
 
+    // Add start node to open_list
     current_node = start_node;
-    AddNeighbors(current_node);
+    current_node->parent = nullptr;
+    current_node->h_value = CalculateHValue(current_node);
+    current_node->g_value = 0;
+    current_node->visited = true;
+    open_list.push_back(current_node);  
     
     // while open_list is not empty, iterate open_list
     while (!open_list.empty()) {
         current_node = NextNode();
+        // Reach end node, set path
         if (current_node->distance(*end_node) < threshold) {
+            m_Model.path = ConstructFinalPath(end_node);
             break;
         }
         AddNeighbors(current_node);
     }
-
-    m_Model.path = ConstructFinalPath(end_node);
 }
