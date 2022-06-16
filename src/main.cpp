@@ -27,10 +27,9 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
     return std::move(contents);
 }
 
-bool checkRange(int user_input_x, int user_input_y)
+bool checkRange(float user_input)
 {
-    if (user_input_x < 0.0 || user_input_x > 100 
-       || user_input_y < 0.0 || user_input_y > 100)
+    if (user_input < 0.0 || user_input > 100.0)
     {
         std::cout << "coordinates must be in the range of [0, 100].\n";
         return false;
