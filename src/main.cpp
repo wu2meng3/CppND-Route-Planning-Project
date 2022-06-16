@@ -27,16 +27,6 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
     return std::move(contents);
 }
 
-float getInput(std::string variable_name) 
-{
-    float coordinate = -1.0f;
-    while (!checkRange(coordinate)) {
-        std::cout << variable_name << " : ";
-        std::cin >> coordinate;
-    }
-    return coordinate;
-}
-
 bool checkRange(int user_input_x, int user_input_y)
 {
     if (user_input_x < 0.0 || user_input_x > 100 
@@ -46,6 +36,16 @@ bool checkRange(int user_input_x, int user_input_y)
         return false;
     }
     return true;
+}
+
+float getInput(std::string variable_name) 
+{
+    float coordinate = -1.0f;
+    while (!checkRange(coordinate)) {
+        std::cout << variable_name << " : ";
+        std::cin >> coordinate;
+    }
+    return coordinate;
 }
 
 int main(int argc, const char **argv)
