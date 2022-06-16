@@ -52,10 +52,11 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
 
     RouteModel::Node* node = current_node;
     constexpr float threshold = 1.0E-8;
-    path_found.push_back(*node);
+    path_found.emplace_back(*node);
+
     while (node != start_node) {
         if (node->parent == nullptr) break;
-        path_found.push_back(*(node->parent));
+        path_found.emplace_back(*(node->parent));
         distance += node->distance(*(node->parent));
         node = node->parent;
     }
