@@ -37,7 +37,7 @@ RouteModel::Node *RoutePlanner::NextNode() {
     std::sort(open_list.begin(), open_list.end(),
         [](const RouteModel::Node* a, const RouteModel::Node* b)
         {
-            return (a->h_value + a->g_value) > (b->h_value + b->g_value);
+            return a->h_value + a->g_value > b->h_value + b->g_value;
         });
     auto* node_with_smallest_h_plus_g = open_list.back();
     open_list.pop_back();
